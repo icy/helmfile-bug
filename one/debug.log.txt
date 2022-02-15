@@ -1,0 +1,63 @@
+processing file "helmfile.yaml" in directory "."
+first-pass rendering starting for "helmfile.yaml.part.0": inherited=&{default map[] map[]}, overrode=<nil>
+first-pass uses: &{default map[] map[]}
+first-pass rendering output of "helmfile.yaml.part.0":
+ 0: releases:
+ 1: - name: test
+ 2:   chart: ./charts/test
+ 3:   transformers:
+ 4:   - transformers/ingress.yaml
+ 5: 
+
+first-pass produced: &{default map[] map[]}
+first-pass rendering result of "helmfile.yaml.part.0": {default map[] map[]}
+vals:
+map[]
+defaultVals:[]
+second-pass rendering result of "helmfile.yaml.part.0":
+ 0: releases:
+ 1: - name: test
+ 2:   chart: ./charts/test
+ 3:   transformers:
+ 4:   - transformers/ingress.yaml
+ 5: 
+
+merged environment: &{default map[] map[]}
+helm:CgsSi> v3.7.2+g663a896
+Successfully generated the value file at transformers/ingress.yaml. produced:
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: fix_ingress
+target:
+  groups: networking.k8s.io
+  version: v1
+  kind: Ingress
+  metadata:
+    name: ".*"
+patch: |-
+  - op: add
+    path: /metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range
+    value: "127.0.0.1/32"
+
+running helm dependency up /tmp/chartify3660731556/test
+options: {false [] [] []   false false true}
+running helm template --debug=false --output-dir=/tmp/chartify3660731556/test/helmx.1.rendered test /tmp/chartify3660731556/test
+Removing the dependencies field from the original Chart.yaml.
+patching files: [/tmp/chartify3660731556/test/templates/test.yaml /tmp/chartify3660731556/test/templates/ingress.yaml]
+generated and using kustomization.yaml:
+kind: ""
+apiversion: ""
+resources:
+- templates/test.yaml
+- templates/ingress.yaml
+transformers:
+- transformers/transformer.0.yaml
+
+Generating /tmp/chartify3660731556/test/all.patched.yaml
+running kustomize build /tmp/chartify3660731556/test --output /tmp/chartify3660731556/test/all.patched.yaml
+Removed /tmp/helmfile1974484501/test-values-6c8cc986b7
+err: [processing all.patched.yaml: parsing yaml doc from "    FOO\n    -----END CERTIFICATE--": yaml: unmarshal errors:
+  line 1: cannot unmarshal !!str `FOO ---...` into chartify.res]
+in ./helmfile.yaml: [processing all.patched.yaml: parsing yaml doc from "    FOO\n    -----END CERTIFICATE--": yaml: unmarshal errors:
+  line 1: cannot unmarshal !!str `FOO ---...` into chartify.res]
