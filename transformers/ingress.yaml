@@ -1,0 +1,14 @@
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: fix_ingress
+target:
+  groups: networking.k8s.io
+  version: v1
+  kind: Ingress
+  metadata:
+    name: ".*"
+patch: |-
+  - op: add
+    path: /metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range
+    value: "127.0.0.1/32"
