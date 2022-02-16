@@ -21,6 +21,7 @@ in ./helmfile.yaml: [processing all.patched.yaml: parsing yaml doc from "    FOO
 ## Bug
 
 https://github.com/roboll/helmfile/issues/2086
+
 https://github.com/variantdev/chartify/issues/18
 
 ## Patch
