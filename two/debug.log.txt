@@ -1,0 +1,78 @@
+processing file "helmfile.yaml" in directory "."
+first-pass rendering starting for "helmfile.yaml.part.0": inherited=&{default map[] map[]}, overrode=<nil>
+first-pass uses: &{default map[] map[]}
+first-pass rendering output of "helmfile.yaml.part.0":
+ 0: releases:
+ 1: - name: test
+ 2:   chart: ./charts/test/
+ 3:   transformers:
+ 4:   - transformers/ingress.yaml
+ 5: 
+
+first-pass produced: &{default map[] map[]}
+first-pass rendering result of "helmfile.yaml.part.0": {default map[] map[]}
+vals:
+map[]
+defaultVals:[]
+second-pass rendering result of "helmfile.yaml.part.0":
+ 0: releases:
+ 1: - name: test
+ 2:   chart: ./charts/test/
+ 3:   transformers:
+ 4:   - transformers/ingress.yaml
+ 5: 
+
+merged environment: &{default map[] map[]}
+helm:mkyQa> v3.7.2+g663a896
+Successfully generated the value file at transformers/ingress.yaml. produced:
+apiVersion: builtin
+kind: PatchTransformer
+metadata:
+  name: fix_ingress
+target:
+  groups: networking.k8s.io
+  version: v1
+  kind: Ingress
+  metadata:
+    name: ".*"
+patch: |-
+  - op: add
+    path: /metadata/annotations/nginx.ingress.kubernetes.io~1whitelist-source-range
+    value: "127.0.0.1/32"
+
+running helm dependency up /tmp/chartify2366498453/test
+options: {false [] [] []   false false true}
+running helm template --debug=false --output-dir=/tmp/chartify2366498453/test/helmx.1.rendered test /tmp/chartify2366498453/test
+Removing the dependencies field from the original Chart.yaml.
+patching files: [/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml /tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/ingress.yaml]
+generated and using kustomization.yaml:
+kind: ""
+apiversion: ""
+resources:
+- helmx.1.rendered/chartName/templates/test.yaml
+- helmx.1.rendered/chartName/templates/ingress.yaml
+transformers:
+- transformers/transformer.0.yaml
+
+Generating /tmp/chartify2366498453/test/all.patched.yaml
+running kustomize build /tmp/chartify2366498453/test --output /tmp/chartify2366498453/test/all.patched.yaml
+:: This is {Version:kustomize/v4.4.1 GitCommit:b2d65ddc98e09187a8e38adc27c30bab078c1dbf BuildDate:2021-11-11T23:36:27Z GoOs:linux GoArch:amd64}
+Error: accumulating resources: accumulation err='accumulating resources from 'helmx.1.rendered/chartName/templates/test.yaml': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory
+
+Removed /tmp/helmfile776820775/test-values-6dbd66b486
+err: [exit status 1
+
+COMMAND:
+  kustomize build /tmp/chartify2366498453/test --output /tmp/chartify2366498453/test/all.patched.yaml
+
+OUTPUT:
+  :: This is {Version:kustomize/v4.4.1 GitCommit:b2d65ddc98e09187a8e38adc27c30bab078c1dbf BuildDate:2021-11-11T23:36:27Z GoOs:linux GoArch:amd64}
+  Error: accumulating resources: accumulation err='accumulating resources from 'helmx.1.rendered/chartName/templates/test.yaml': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory]
+in ./helmfile.yaml: [exit status 1
+
+COMMAND:
+  kustomize build /tmp/chartify2366498453/test --output /tmp/chartify2366498453/test/all.patched.yaml
+
+OUTPUT:
+  :: This is {Version:kustomize/v4.4.1 GitCommit:b2d65ddc98e09187a8e38adc27c30bab078c1dbf BuildDate:2021-11-11T23:36:27Z GoOs:linux GoArch:amd64}
+  Error: accumulating resources: accumulation err='accumulating resources from 'helmx.1.rendered/chartName/templates/test.yaml': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory': evalsymlink failure on '/tmp/chartify2366498453/test/helmx.1.rendered/chartName/templates/test.yaml' : lstat /tmp/chartify2366498453/test/helmx.1.rendered: no such file or directory]
